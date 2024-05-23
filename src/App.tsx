@@ -1,15 +1,17 @@
 import React from 'react';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
+import WeatherPage from './pages/WeatherPage';
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <h1>Better Weather 🌤️</h1>
-        <HomePage/>
-      
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/weather" element={<WeatherPage />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
