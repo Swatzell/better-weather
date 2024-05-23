@@ -1,0 +1,28 @@
+.homepage-body {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+h2 {
+    color: #37048A;
+}
+
+.input-box {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.city-selector {
+    margin: 20px;
+}
+
+button {
+    background-color: #6FA3B3;
+    color: black;
+    border-radius: 5px;
+}
