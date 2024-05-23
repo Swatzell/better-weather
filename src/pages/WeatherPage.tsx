@@ -7,6 +7,7 @@ import './WeatherPage.css';
 
 const WeatherPage: React.FC = () => {
   const [searchParams] = useSearchParams();
+  const city = searchParams.get('city') || '';
   const latitude = searchParams.get('lat') || '';
   const longitude = searchParams.get('lon') || '';
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
@@ -43,7 +44,7 @@ const WeatherPage: React.FC = () => {
   return (
     <div className="weather-page">
       <header className="weather-header">
-        <h1>Today's forecast for [{latitude}, {longitude}]:</h1>
+        <h1>Today's forecast for {city}:</h1>
       </header>
       <div className="weather-info">
         <div className="weather-icon">
