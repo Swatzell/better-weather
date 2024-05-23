@@ -10,6 +10,7 @@ export default function HomePage() {
     setLocation(event.target.value);
   };
 
+
   const handleSubmit = () => {
     const selectedOption = document.querySelector(`#locations option[value="${location}"]`);
     const lat = selectedOption?.getAttribute('data-lat');
