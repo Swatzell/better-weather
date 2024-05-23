@@ -10,6 +10,8 @@ export default function HomePage(){
                     <option value="" disabled>Select an Option</option>
                     <option value="Denver">Denver, CO</option>
                     <option value="El Paso">El Paso, TX</option>
+                    <option value="Birmingham">Birmingham, AL</option>
+                    <option value="Chicago">Chicago, IL</option>
                 </select>
                 <button className='rec-button'>See your Recommendations!</button>
             </div>
