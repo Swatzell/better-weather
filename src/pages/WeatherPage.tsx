@@ -39,7 +39,7 @@ const WeatherPage: React.FC = () => {
   }
 
   const todayForecast = weatherData.daily[0];
-  const clothingSuggestion = getClothingSuggestion(todayForecast.temp.day, todayForecast.weather[0].id);
+  const clothingSuggestion = getClothingSuggestion(todayForecast.weather[0].id);
 
   return (
     <div className="weather-page">
