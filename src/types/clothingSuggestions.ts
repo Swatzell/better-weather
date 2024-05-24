@@ -7,10 +7,10 @@ const weatherConditionGroups = {
     Clouds: [801, 802, 803, 804]
   };
 
-  export const getClothingSuggestion = (temp: number, weatherId: number): string => {
+  export const getClothingSuggestion = (weatherId: number): string => {
     let suggestion = '';
-  
-    if (weatherConditionGroups.Thunderstorm.includes(weatherId)) {
+
+  if (weatherConditionGroups.Thunderstorm.includes(weatherId)) {
       suggestion = 'Wear a raincoat and carry an umbrella. Avoid outdoor activities if possible.';
     } else if (weatherConditionGroups.Drizzle.includes(weatherId) || weatherConditionGroups.Rain.includes(weatherId)) {
       suggestion = 'Carry an umbrella and wear a raincoat.';
@@ -22,17 +22,7 @@ const weatherConditionGroups = {
       suggestion = 'Wear a light jacket as it might get cooler later.';
     }
   
-    if (temp < 32) {
-      suggestion += ' Also, it is very cold, so dress warmly.';
-    } else if (temp < 50) {
-      suggestion += ' The weather is cool, consider wearing a warm jacket.';
-    } else if (temp < 68) {
-      suggestion += ' The temperature is mild, a light jacket or sweater is recommended.';
-    } else if (temp < 85) {
-      suggestion += ' The weather is warm, you can wear a t-shirt and jeans.';
-    } else {
-      suggestion += ' It is hot outside, wear a tank top and shorts.';
-    }
+  
   
     return suggestion;
   };
