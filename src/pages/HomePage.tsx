@@ -23,6 +23,7 @@ export default function HomePage() {
 
   return (
     <div className='homepage-body'>
+      <h1>Better Weather 🌤️</h1>
       <h2>Input your location to get clothing recommendations for today!!!</h2>
       <div className='input-box'>
         <label htmlFor="options">Choose your location!</label>
