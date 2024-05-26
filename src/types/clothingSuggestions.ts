@@ -17,9 +17,9 @@ const weatherConditionGroups = {
     } else if (weatherConditionGroups.Snow.includes(weatherId)) {
       suggestion = 'Wear a heavy coat, gloves, scarf, and waterproof boots.';
     } else if (weatherConditionGroups.Clear.includes(weatherId)) {
-      suggestion = 'You can dress lightly but dont forget your sunscreen.';
+      suggestion = 'You can dress lightly - but dont forget your sunscreen!';
     } else if (weatherConditionGroups.Clouds.includes(weatherId)) {
-      suggestion = 'Wear a light jacket as it might get cooler later.';
+      suggestion = 'Wear a light jacket, as it might get cooler later.';
     }
   
     if (temp < 32) {
@@ -35,4 +35,22 @@ const weatherConditionGroups = {
     }
   
     return suggestion;
+  };
+
+
+  export const getBackgroundColor = (weatherId: number): string => {
+    if (weatherConditionGroups.Thunderstorm.includes(weatherId)) {
+      return '#4B0082'; //gloomy grey
+    } else if (weatherConditionGroups.Drizzle.includes(weatherId)) {
+      return '#A9A9A9';//light grey
+    } else if (weatherConditionGroups.Rain.includes(weatherId)) {
+      return '#4682B4';//drizzly blue
+    } else if (weatherConditionGroups.Snow.includes(weatherId)) {
+      return '#ADD8E6';//light blue
+    } else if (weatherConditionGroups.Clear.includes(weatherId)) {
+      return '#FFD700'; //yellow
+    } else if (weatherConditionGroups.Clouds.includes(weatherId)) {
+      return '#D3D3D3';//silvery cloud grey
+    }
+    return '#ffffff';
   };
