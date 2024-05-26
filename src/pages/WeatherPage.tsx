@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { getWeather } from '../api/api-calls';
 import { WeatherData } from '../types/weather';
-import { getClothingSuggestion } from '../types/clothingSuggestions';
+import { getClothingSuggestion, getBackgroundColor } from '../types/clothingSuggestions';
 import './WeatherPage.css';
 
 const WeatherPage: React.FC = () => {
@@ -12,12 +12,16 @@ const WeatherPage: React.FC = () => {
   const longitude = searchParams.get('lon') || '';
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [backgroundColor, setBackgroundColor] = useState('#ffffff');
+
 
   useEffect(() => {
     const fetchWeather = async () => {
       try {
         const data = await getWeather(parseFloat(latitude), parseFloat(longitude));
         setWeatherData(data);
+        const todayForecast = data.daily[0];
+        setBackgroundColor(getBackgroundColor(todayForecast.weather[0].id));
       } catch (error) {
         console.error(error);
       } finally {
@@ -42,7 +46,7 @@ const WeatherPage: React.FC = () => {
   const clothingSuggestion = getClothingSuggestion(todayForecast.weather[0].id);
 
   return (
-    <div className="weather-page">
+    <div className="weather-page" style={{ backgroundColor: `${backgroundColor} !important` }}>
       <header className="weather-header">
         <h1>Today's forecast for {city}:</h1>
       </header>
