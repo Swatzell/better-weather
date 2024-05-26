@@ -2,10 +2,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
     background-color: #e0f7fa;
     height: 100vh;
     box-sizing: border-box;
+    text-align: center;
 }
 
 .weather-header {
@@ -16,7 +16,17 @@
     margin-bottom: 20px;
 }
 
-.weather-header h1 {
+h1 {
+    background-color: #6FA3B3;
+    font-family: "Poetsen One", sans-serif;
+    font-weight: lighter;
+    margin: 0;
+    font-size: xx-large;
+    height: 50px;
+    width: 100%;
+  }
+
+.weather-header h2 {
     color: #37048A;
     font-size: 2em;
     margin: 0;

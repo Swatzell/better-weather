@@ -47,8 +47,9 @@ const WeatherPage: React.FC = () => {
 
   return (
     <div className="weather-page" style={{ backgroundColor: `${backgroundColor} !important` }}>
+      <h1>Better Weather 🌤️</h1>
       <header className="weather-header">
-        <h1>Today's forecast for {city}:</h1>
+        <h2>Today's forecast for {city}:</h2>
       </header>
       <div className="weather-info">
         <div className="weather-icon">
