@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { getWeather } from '../api/api-calls';
+import { useSearchParams, useNavigate } from 'react-router-dom';
+import { GetWeather } from '../api/api-calls';
 import { WeatherData } from '../types/weather';
 import { getClothingSuggestion, getBackgroundColor } from '../types/clothingSuggestions';
 import './WeatherPage.css';
@@ -8,31 +8,40 @@ import './WeatherPage.css';
 const WeatherPage: React.FC = () => {
   const [searchParams] = useSearchParams();
   const city = searchParams.get('city') || '';
-  const latitude = searchParams.get('lat') || '';
-  const longitude = searchParams.get('lon') || '';
+  const latitude = parseFloat(searchParams.get('lat') || '0');
+  const longitude = parseFloat(searchParams.get('lon') || '0');
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState(true);
   const [backgroundColor, setBackgroundColor] = useState('#ffffff');
-
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchWeather = async () => {
       try {
-        const data = await getWeather(parseFloat(latitude), parseFloat(longitude));
+        const data = await GetWeather(latitude, longitude, navigate);
         setWeatherData(data);
         const todayForecast = data.daily[0];
         setBackgroundColor(getBackgroundColor(todayForecast.weather[0].id));
       } catch (error) {
-        console.error(error);
+        const status = (error as Error).message.split(' ')[1];
+        if (status === '404') {
+          navigate('/404');
+        } else if (parseInt(status) >= 500) {
+          navigate('/500');
+        } else {
+          navigate(`/error/${status}`);
+        }
       } finally {
         setLoading(false);
       }
     };
 
-    if (latitude && longitude) {
+    if (!isNaN(latitude) && !isNaN(longitude)) {
       fetchWeather();
+    } else {
+      setLoading(false);
     }
-  }, [latitude, longitude]);
+  }, [latitude, longitude, navigate]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -46,7 +55,7 @@ const WeatherPage: React.FC = () => {
   const clothingSuggestion = getClothingSuggestion(todayForecast.weather[0].id);
 
   return (
-    <div className="weather-page" style={{ backgroundColor: `${backgroundColor} !important` }}>
+    <div className="weather-page" style={{ backgroundColor }}>
       <h1>Better Weather 🌤️</h1>
       <header className="weather-header">
         <h2>Today's forecast for {city}:</h2>
@@ -61,13 +70,13 @@ const WeatherPage: React.FC = () => {
         </div>
       </div>
       <div className="weather-description">
-        <p>{todayForecast.summary}</p>
+        <p>{todayForecast.weather[0].description}</p>
         <p>{clothingSuggestion}</p>
         <div className="weather-icons">
           <span>🌧️</span> <span>☔</span> <span>🧥</span>
         </div>
       </div>
-      <button className="home-button" onClick={() => window.history.back()}>Home</button>
+      <button className="home-button" onClick={() => navigate('/')}>Home</button>
     </div>
   );
 };
