@@ -4,20 +4,26 @@ import { useNavigate } from 'react-router-dom';
 
 export default function HomePage() {
   const [location, setLocation] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleLocationChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setLocation(event.target.value);
+    setError(''); // Clear the error when a location is selected
   };
 
-
   const handleSubmit = () => {
+    if (!location) {
+      setError('Please select a city to see the weather.');
+      return;
+    }
+
     const selectedOption = document.querySelector(`#locations option[value="${location}"]`);
     const lat = selectedOption?.getAttribute('data-lat');
     const lon = selectedOption?.getAttribute('data-lon');
 
     if (lat && lon) {
-        navigate(`/weather?city=${location}&lat=${lat}&lon=${lon}`);
+      navigate(`/weather?city=${location}&lat=${lat}&lon=${lon}`);
     }
   };
 
@@ -36,7 +42,7 @@ export default function HomePage() {
         </select>
         <button className='rec-button' onClick={handleSubmit}>See your Recommendations!</button>
       </div>
-      <p>Have you ever looked at the weather for the day and wondered "What in the world do I wear??" Well then this webpage is for you!!</p>
+      {error ? <p className="error-message">{error}</p> : <p>Have you ever looked at the weather for the day and wondered "What in the world do I wear??" Well then this webpage is for you!!</p>}
     </div>
   );
 }
