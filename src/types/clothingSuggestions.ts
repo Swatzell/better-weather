@@ -30,17 +30,17 @@ const weatherConditionGroups = {
 
   export const getBackgroundColor = (weatherId: number): string => {
     if (weatherConditionGroups.Thunderstorm.includes(weatherId)) {
-      return '#4B0082'; //gloomy grey
+      return '#4B0082'; 
     } else if (weatherConditionGroups.Drizzle.includes(weatherId)) {
-      return '#A9A9A9';//light grey
+      return '#A9A9A9';
     } else if (weatherConditionGroups.Rain.includes(weatherId)) {
-      return '#4682B4';//drizzly blue
+      return '#4682B4';
     } else if (weatherConditionGroups.Snow.includes(weatherId)) {
-      return '#ADD8E6';//light blue
+      return '#ADD8E6';
     } else if (weatherConditionGroups.Clear.includes(weatherId)) {
-      return '#FFD700'; //yellow
+      return '#FFD700'; 
     } else if (weatherConditionGroups.Clouds.includes(weatherId)) {
-      return '#D3D3D3';//silvery cloud grey
+      return '#D3D3D3';
     }
     return '#ffffff';
   };

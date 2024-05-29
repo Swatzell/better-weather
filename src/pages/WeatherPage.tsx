@@ -96,7 +96,6 @@ const WeatherPage: React.FC = () => {
       </div>
       <div className="rating-section">
         <h3>Rate today's weather:</h3>
-        <form onSubmit={handleRatingSubmit}>
         <label htmlFor="weather-rating">Rating (1-5):</label>
         <input
           type="number"
@@ -107,7 +106,6 @@ const WeatherPage: React.FC = () => {
           aria-label="Weather rating"
         />
         <button onClick={handleRatingSubmit}>Submit Rating</button>
-        </form>
       </div>
       <div className="saved-ratings">
         <h3>Saved Ratings:</h3>
