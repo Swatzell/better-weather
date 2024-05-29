@@ -13,6 +13,8 @@ const WeatherPage: React.FC = () => {
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState(true);
   const [backgroundColor, setBackgroundColor] = useState('#ffffff');
+  const [rating, setRating] = useState<number | null>(null);
+  const [savedRatings, setSavedRatings] = useState<Array<{ date: string; city: string; rating: number }>>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -42,6 +44,22 @@ const WeatherPage: React.FC = () => {
       setLoading(false);
     }
   }, [latitude, longitude, navigate]);
+
+  const handleRatingSubmit = () => {
+    if (rating !== null) {
+      const newRating = { date: new Date().toISOString().split('T')[0], city, rating };
+      const updatedRatings = [...savedRatings, newRating];
+      setSavedRatings(updatedRatings);
+      localStorage.setItem('weatherRatings', JSON.stringify(updatedRatings));
+      setRating(null); //resets rating input
+    }
+  };
+
+  const handleDeleteRating = (index: number) => {
+    const updatedRatings = savedRatings.filter((_, i) => i !== index);
+    setSavedRatings(updatedRatings);
+    localStorage.setItem('weatherRatings', JSON.stringify(updatedRatings));
+  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -75,6 +93,28 @@ const WeatherPage: React.FC = () => {
         <div className="weather-icons">
           <span>🌧️</span> <span>☔</span> <span>🧥</span>
         </div>
+      </div>
+      <div className="rating-section">
+        <h3>Rate today's weather:</h3>
+        <input
+          type="number"
+          min="1"
+          max="5"
+          value={rating ?? ''}
+          onChange={(e) => setRating(parseInt(e.target.value))}
+        />
+        <button onClick={handleRatingSubmit}>Submit Rating</button>
+      </div>
+      <div className="saved-ratings">
+        <h3>Saved Ratings:</h3>
+        <ul>
+          {savedRatings.map((entry, index) => (
+            <li key={index}>
+              {entry.date} - {entry.city}: {entry.rating}/5
+              <button onClick={() => handleDeleteRating(index)}>Delete</button>
+            </li>
+          ))}
+        </ul>
       </div>
       <button className="home-button" onClick={() => navigate('/')}>Home</button>
     </div>
