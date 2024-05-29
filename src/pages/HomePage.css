@@ -39,4 +39,10 @@ button {
     background-color: #6FA3B3;
     color: black;
     border-radius: 5px;
+    cursor: pointer;
+    
+}
+
+button:hover {
+    background-color: #518fa0;
 }
